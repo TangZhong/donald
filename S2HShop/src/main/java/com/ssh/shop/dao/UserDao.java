@@ -1,0 +1,10 @@
+package com.ssh.shop.dao;
+
+import com.ssh.shop.entity.User;
+
+public interface UserDao extends BaseDao<User> {
+    //
+    public User login(User user);
+
+    public User getUser(String userid);
+}
