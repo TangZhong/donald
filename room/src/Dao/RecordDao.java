@@ -60,24 +60,24 @@ public class RecordDao {
 
         StringBuffer sb = new StringBuffer(sql);
 
-        if(condition.getStartDate() != null){
-            sb.append(" and r.date >= " + condition.getStartDate());
+        if(condition.getStartDate() != null && !"".equals(condition.getStartDate())){
+            sb.append(" and r.date >= '" + condition.getStartDate() + "'");
         }
 
-        if(condition.getEndDate() != null){
-            sb.append(" and r.date <= " + condition.getEndDate());
+        if(condition.getEndDate() != null && !"".equals(condition.getEndDate())){
+            sb.append(" and r.date <= '" + condition.getEndDate() + "'");
         }
 
         if(condition.getUname() != null){
-            sb.append(" and u.uname = " + condition.getUname());
+            sb.append(" and u.uname = '" + condition.getUname() + "'");
         }
 
         if(condition.getUsernumber() != null){
-            sb.append(" and r.usernumber = " + condition.getUsernumber());
+            sb.append(" and r.usernumber = '" + condition.getUsernumber() + "'");
         }
 
         if(condition.getUdorm() != null){
-            sb.append(" and u.udorm = " + condition.getUdorm());
+            sb.append(" and u.udorm = '" + condition.getUdorm() + "'");
         }
 
         Connection connection = DbUtil.getCon();
@@ -86,7 +86,7 @@ public class RecordDao {
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sb.toString());
-
+            System.out.println("record search sql:" + sb);
             while(rs.next()){
                 Record record = new Record();
                 record.setUsername(rs.getString("uname"));
@@ -95,6 +95,7 @@ public class RecordDao {
                 record.setDetail(rs.getString("detail"));
                 record.setUserhouse(rs.getString("uhouse"));
                 record.setRecordId(rs.getInt("id"));
+                record.setUsernumber(rs.getString("usernumber"));
                 result.add(record);
             }
         } catch (SQLException e) {

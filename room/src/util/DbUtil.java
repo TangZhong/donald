@@ -10,10 +10,12 @@ import util.PropertiesUtil;
 
 public class DbUtil {
 
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String JDBC_URL = "jdbc:mysql://10.199.245.40:3306/room";
-	private static final String JDBC_USERNAME = "root";
-	private static final String JDBC_PASSWORD = "123456";
+	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+//	public static final String JDBC_URL = "jdbc:mysql://10.199.245.40:3306/room";
+	public static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/room";
+	public static final String JDBC_USERNAME = "root";
+//	public static final String JDBC_PASSWORD = "123456";
+	public static final String JDBC_PASSWORD = "root";
 
 	public static Connection getCon() {
 

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import Bean.DBBean;
 import Bean.Tools;
+import util.DbUtil;
 
 public class AdminLogin extends HttpServlet {
 
@@ -88,7 +89,7 @@ Connection conn=null;
 Statement stmt=null;
 ResultSet rs=null;
 try{
-	conn=DriverManager.getConnection(DBBean.dbms_conn,DBBean.dbms_name,DBBean.dbms_password);
+	conn= DbUtil.getCon();
 	stmt=conn.createStatement();
 	String sql="select aname,apass from admin where aname='"+aname+"'and apass='"+apass+"'";
 	rs=stmt.executeQuery(sql);

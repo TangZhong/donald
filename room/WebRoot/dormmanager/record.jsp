@@ -75,11 +75,12 @@ window.onload = function(){
                		</span>
 					<span><font style="font-family: '黑体'; font-style: 'bold'; font-size: 20px" color="blue">${dormBuildName }&nbsp;&nbsp;</font></span>
 					<select id="searchType" name="searchType" style="width: 80px;">
-					<option value="name">姓名</option>
-					<option value="number" ${searchType eq "number"?'selected':'' }>学号</option>
-					<option value="dorm" ${searchType eq "dorm"?'selected':'' }>寝室</option>
+						<option>全部</option>
+					<option value="uname">姓名</option>
+					<option value="unumber" ${searchType eq "number"?'selected':'' }>学号</option>
+					<option value="udorm" ${searchType eq "dorm"?'selected':'' }>宿舍楼号</option>
 					</select>
-					&nbsp;<input id="s_studentText" name="s_studentText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${s_studentText }">
+					&nbsp;<input id="searchText" name="searchText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${searchText }">
 					&nbsp;<button type="submit" class="btn btn-info" onkeydown="if(event.keyCode==13) myForm.submit()">搜索</button>
 				</span>
 		</form>

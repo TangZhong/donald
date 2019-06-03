@@ -69,7 +69,7 @@ function checkForm(){
 					</table>
 					<div align="center">
 						<input type="submit" class="btn btn-primary" value="保存"/>
-						&nbsp;<button class="btn btn-primary" type="button" onclick="javascript:window.location='record'">返回</button>
+						&nbsp;<button class="btn btn-primary" type="button" onclick="javascript:window.location='record.jsp'">返回</button>
 					</div>
 					<div align="center">
 						<font id="error" color="red">${error }</font>

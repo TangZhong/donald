@@ -65,10 +65,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="data_list">
       <div class="data_list_title">
-          缺勤记录
+          查看寝室评分
       </div>
       <form name="myForm" class="form-search" method="post" action="ScoreServlet?action=search" style="padding-bottom: 0px">
+          <select id="searchType" name="searchType" style="width: 80px;">
+              <option value="">全部</option>
+              <option value="udorm">宿舍楼号</option>
+              <option value="uhouse" ${searchType eq "number"?'selected':'' }>寝室号</option>
+          </select>
           <span class="data_search">
+              &nbsp;<input id="searchText" name="searchText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${searchText }">
 					<button type="submit" class="btn btn-info" onkeydown="if(event.keyCode==13) myForm.submit()">搜索</button>
           </span>
       </form>

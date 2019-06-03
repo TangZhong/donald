@@ -1,5 +1,7 @@
 package Bean;
 
+import util.DbUtil;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,9 +10,6 @@ import java.sql.Statement;
 
 public class DBBean {
 
-		public static String dbms_name="root";
-		public static String dbms_password="123456";
-		public static String dbms_conn="jdbc:mysql://10.199.245.40:3306/room";
 		private Connection conn=null;
 		private Statement stmt=null;
 		private ResultSet rs=null;
@@ -25,7 +24,7 @@ public class DBBean {
 		
 		public Connection getConn(){
 			try{
-				conn=DriverManager.getConnection(dbms_conn, dbms_name,  dbms_password);
+				conn=DriverManager.getConnection(DbUtil.JDBC_URL, DbUtil.JDBC_USERNAME,  DbUtil.JDBC_PASSWORD);
 			}catch(SQLException se){
 				se.printStackTrace();
 			}

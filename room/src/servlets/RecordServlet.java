@@ -47,12 +47,24 @@ public class RecordServlet extends HttpServlet {
 	throws ServletException, IOException {
 		response.setContentType("text/html");
 
-		RecordDao dao = new RecordDao();
-		RecordCondition condition = new RecordCondition();
-		condition.setUname(request.getParameter("name"));
-		List<Record> records = dao.searchRecords(condition);
-		if(records.size() > 1)
-			System.out.println(records.size() + "," + records.get(0));
+		String actionType = request.getParameter("action");
+
+		if("delete".equals(actionType)){
+
+			int id = Integer.valueOf(request.getParameter("recordId"));
+
+			RecordDao dao = new RecordDao();
+
+			//先删除
+			dao.deleteRecord(id);
+
+			//再刷新结果页
+			List<Record> records = dao.searchRecords(new RecordCondition());
+
+			request.setAttribute("recordList",records);
+
+			request.getRequestDispatcher("dormmanager/record.jsp").forward(request, response);
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -82,30 +94,31 @@ public class RecordServlet extends HttpServlet {
 		if("search".equals(actionType)){
 			RecordDao dao = new RecordDao();
 
-			List<Record> records = dao.searchRecords(new RecordCondition());
+			RecordCondition condition = new RecordCondition();
+			String searchType = request.getParameter("searchType");
+			String searchText = request.getParameter("searchText");
+			String startDate = request.getParameter("startDate");
+			String endDate = request.getParameter("endDate");
+
+			if(startDate != null)
+				condition.setStartDate(startDate);
+			if(endDate != null)
+				condition.setEndDate(endDate);
+			if("uname".equals(searchType))
+				condition.setUname(searchText);
+			if("udorm".equals(searchType))
+				condition.setUdorm(searchText);
+			if("unumber".equals(searchType))
+				condition.setUsernumber(searchText);
+
+
+			List<Record> records = dao.searchRecords(condition);
 
 			request.setAttribute("recordList",records);
 
 			request.getRequestDispatcher("dormmanager/record.jsp").forward(request, response);
 		}
 
-		if("delete".equals(actionType)){
-
-			int id = Integer.valueOf(request.getParameter("recordId"));
-
-			RecordDao dao = new RecordDao();
-
-			//先删除
-			dao.deleteRecord(id);
-
-			//再刷新结果页
-			List<Record> records = dao.searchRecords(new RecordCondition());
-
-			request.setAttribute("recordList",records);
-
-			request.getRequestDispatcher("dormmanager/record.jsp").forward(request, response);
-		}
-		
 }
 
 	

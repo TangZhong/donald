@@ -28,12 +28,12 @@
         <fieldset>
              <legend>基本操作</legend>
              <h3><a href="modifyPass.jsp" target="ifrm">修改密码</a></h3>
-             <h3><a href="#" target="_parents">退出登录</a></h3>
+             <h3><a href="../Logoutservlet" target="_parents">退出登录</a></h3>
         </fieldset>
         <fieldset>
              <legend>寝室评分管理</legend>
                <h3><a href="chengji.jsp" target="ifrm">对寝室进行评分</a></h3>
-               <h3><a href="showchengji.jsp" target="ifrm">发布寝室评分情况</a></h3><br><br>
+               <h3><a href="showchengji.jsp" target="ifrm">查看寝室评分情况</a></h3><br><br>
         </fieldset>
         <fieldset>
              <legend>寝室缺勤管理</legend>       
@@ -47,7 +47,7 @@
       </div>
       </c:if>
       
-      <c:if test="${empty sessionScope.aname}">
+      <c:if test="${empty sessionScope.mname}">
       <h1>您尚未登录，请先<a href="managerlogin.jsp">登录</a></h1>
       <h3><a href="index.jsp">返回主页</a></h3>
       </c:if>

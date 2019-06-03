@@ -62,7 +62,7 @@ public class ScoreServlet extends HttpServlet {
 			ScoreDao scoreDao = new ScoreDao();
 			scoreDao.saveScore(score);
 
-			List<Score> scores = scoreDao.searchScores();
+			List<Score> scores = scoreDao.searchScores(new Score());
 
 			request.setAttribute("scoreList",scores);
 
@@ -72,7 +72,15 @@ public class ScoreServlet extends HttpServlet {
 		if("search".equals(actionType)){
 			ScoreDao scoreDao = new ScoreDao();
 
-			List<Score> scores = scoreDao.searchScores();
+			Score condition = new Score();
+			String searchType = request.getParameter("searchType");
+			String searchText = request.getParameter("searchText");
+			if("udorm".equals(searchType))
+				condition.setUdorm(searchText);
+			if("uhouse".equals(searchType))
+				condition.setUhouse(searchText);
+
+			List<Score> scores = scoreDao.searchScores(condition);
 
 			request.setAttribute("scoreList",scores);
 
