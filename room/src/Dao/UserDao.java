@@ -37,7 +37,7 @@ public class UserDao {
 	}
 	
 	/******用户名和密码是否正确*****/
-	public boolean findByNameAndPass(String uname,String upass,boolean uidentity ){
+	public boolean findByNameAndPass(String uname,String upass,int uidentity ){
 	
 		boolean mark=false;
 		DBBean db=new DBBean();
@@ -47,6 +47,7 @@ public class UserDao {
 			db.getConn();
 			db.creatStmt();
 			String sql="select uname,upass from user where uname='"+uname+"'and upass='"+upass+"'and uidentity='"+uidentity+"'";
+			System.out.println(sql);
 			rs=db.executeQ(sql);
 			if(rs.next()){
 				mark=true;

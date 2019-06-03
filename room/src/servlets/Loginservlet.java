@@ -75,12 +75,7 @@ public class Loginservlet extends HttpServlet {
 		
 		String uname =Tools.CodeToChinese(request.getParameter("uname"));
 		String upass =request.getParameter("upass");
-		String uidentity =Tools.CodeToChinese(request.getParameter("uidentity"));
-		boolean b_uidentity=uidentity.equals("寝室长")?false:true;
-		 UserBean user=new UserBean();
-	     user.setUname(uname);
-	     user.setUpass(upass);
-	     user.setUidentity(b_uidentity);
+		int uidentity = "寝室长".equals(Tools.CodeToChinese(request.getParameter("uidentity"))) ? 1 : 0;
 	    UserDao udao=new UserDao();
 	//	String remember = request.getParameter("remember");
 		String msg="";
@@ -90,46 +85,25 @@ public class Loginservlet extends HttpServlet {
 		
 		HttpSession session=request.getSession();
 
-		if(udao.findByNameAndPass(uname,upass,b_uidentity)){
-			boolean mark=udao.findByNameAndPass(uname,upass,b_uidentity);
-			if(mark){
-				if(b_uidentity=false)
-				{
-					msg="欢迎您！"+uname;
-					newUrl="index1.jsp";
-					session.setAttribute("uname",uname);
-					session.setAttribute("upass",upass);
-		
-			} else{
-							msg="欢迎您！"+uname;
-							newUrl="index2.jsp";
-							session.setAttribute("uname",uname);
-							session.setAttribute("upass",upass);
-				
-					}      
-
-			}
-			else{
-				msg="用户名或密码错误！您刚才输入的用户名为："+uname;
-			    newUrl="login.jsp";
-			
-				
-			}
-		}
-		else{
-			msg="登录异常！请重新登录！";
+		if(!udao.findByNameAndPass(uname,upass,uidentity)){
+			msg="用户名或密码错误！您刚才输入的用户名为："+uname;
 			newUrl="login.jsp";
-			
-		}
+		}else {
+			if(uidentity == 1)
+				newUrl="index1.jsp";
+			else
+				newUrl="index2.jsp";
 
+			msg="欢迎您！"+uname;
+			session.setAttribute("uname",uname);
+			session.setAttribute("upass",upass);
+		}
 
 		request.setAttribute("info", msg);
 		request.setAttribute("newUrl", newUrl);
 		RequestDispatcher rd=request.getRequestDispatcher(rurl);
 		rd.forward(request, response);
-		
-		
-		
+
 		response.setContentType("text/html; charset=utf-8");
 		
 }

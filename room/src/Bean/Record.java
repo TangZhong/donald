@@ -19,48 +19,60 @@ public class Record {
 		this.date = date;
 		this.detail = detail;
 	}
-	
+
 	public int getRecordId() {
 		return recordId;
 	}
+
 	public void setRecordId(int recordId) {
 		this.recordId = recordId;
 	}
-	public String getusernumber() {
+
+	public String getUsernumber() {
 		return usernumber;
 	}
-	public void setusernumber(String usernumber) {
+
+	public void setUsernumber(String usernumber) {
 		this.usernumber = usernumber;
 	}
-	public String getStudentName() {
+
+	public String getUsername() {
 		return username;
 	}
-	public void setusername(String username) {
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	public String getDetail() {
 		return detail;
 	}
+
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public String getuserdorm() {
+
+	public String getUserdorm() {
 		return userdorm;
 	}
-	public void setuserdorm(String userdorm) {
+
+	public void setUserdorm(String userdorm) {
 		this.userdorm = userdorm;
 	}
-	public String getuserhouse() {
+
+	public String getUserhouse() {
 		return userhouse;
 	}
-	public void setuserhouse(String userhouse) {
+
+	public void setUserhouse(String userhouse) {
 		this.userhouse = userhouse;
 	}
 
@@ -79,6 +91,19 @@ public class Record {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Record{" +
+				"recordId=" + recordId +
+				", usernumber='" + usernumber + '\'' +
+				", username='" + username + '\'' +
+				", date='" + date + '\'' +
+				", detail='" + detail + '\'' +
+				", userdorm='" + userdorm + '\'' +
+				", userhouse='" + userhouse + '\'' +
+				", startDate='" + startDate + '\'' +
+				", endDate='" + endDate + '\'' +
+				'}';
+	}
 }

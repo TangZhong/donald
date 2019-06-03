@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Bean.DBBean;
 import Bean.Tools;
 
 public class AdminLogin extends HttpServlet {
@@ -83,14 +84,11 @@ String msg="";
 String rurl="../admin/info.jsp";
 String newUrl="";
 
-String dbms_name="root";
-String dbms_password="123456";
-String dbms_conn="jdbc:mysql://127.0.0.1:3306/room";
 Connection conn=null;
 Statement stmt=null;
 ResultSet rs=null;
 try{
-	conn=DriverManager.getConnection(dbms_conn, dbms_name,  dbms_password);
+	conn=DriverManager.getConnection(DBBean.dbms_conn,DBBean.dbms_name,DBBean.dbms_password);
 	stmt=conn.createStatement();
 	String sql="select aname,apass from admin where aname='"+aname+"'and apass='"+apass+"'";
 	rs=stmt.executeQuery(sql);

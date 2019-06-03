@@ -8,20 +8,20 @@ import java.sql.Statement;
 
 public class DBBean {
 
-		private String dbms_name="root";
-		private String dbms_password="123456";
-		private String dbms_conn="jdbc:mysql://127.0.0.1:3306/room";
+		public static String dbms_name="root";
+		public static String dbms_password="123456";
+		public static String dbms_conn="jdbc:mysql://10.199.245.40:3306/room";
 		private Connection conn=null;
 		private Statement stmt=null;
 		private ResultSet rs=null;
 		
-		public DBBean(){
+		static {
 			try{
 				Class.forName("com.mysql.jdbc.Driver");
 				}catch(ClassNotFoundException ce){
 					ce.printStackTrace();
 				}
-			}
+		}
 		
 		public Connection getConn(){
 			try{

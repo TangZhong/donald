@@ -1,6 +1,10 @@
 package Dao;
 
 import Bean.DBBean;
+import util.DbUtil;
+
+import java.sql.Connection;
+import java.sql.Statement;
 
 public class ManagerDao {
 	 /*****更改管理员密码******/
@@ -20,5 +24,7 @@ public class ManagerDao {
 				   db.close();
 			}
 			return mark;
-		}
+	  }
+
+
 }
