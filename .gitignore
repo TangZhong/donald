@@ -8,3 +8,7 @@ classes/
 **/classes/
 
 out/
+
+output/
+output
+output/*

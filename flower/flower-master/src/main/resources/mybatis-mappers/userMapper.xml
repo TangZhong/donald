@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- T_USER -->
+<mapper namespace="com.flower.dao.UserDao">
+    <!-- 结果映射 -->
+    <resultMap id="userMap" type="com.flower.bean.User">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="EXTRA" property="extra" jdbcType="VARCHAR" />
+        <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, USERNAME, PASSWORD, TYPE, EXTRA, OPENID, 
+        PHONE
+    </sql>
+    
+    <!-- 查询所有数据 -->
+    <select id="findUserAll" resultMap="userMap">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_USER
+    </select>
+    
+    <!-- 根据条件查询数据 -->
+    <select id="findUserByCondition" resultMap="userMap" parameterType="map">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_USER WHERE 1 = 1
+        <if test="username != null and username != ''">
+            AND USERNAME LIKE CONCAT('%',#{username},'%')
+        </if>
+        <if test="password != null and password != ''">
+            AND PASSWORD LIKE CONCAT('%',#{password},'%')
+        </if>
+        <if test="type != null">
+            AND TYPE = #{type}
+        </if>
+        <if test="extra != null and extra != ''">
+            AND EXTRA LIKE CONCAT('%',#{extra},'%')
+        </if>
+        <if test="openid != null and openid != ''">
+            AND OPENID LIKE CONCAT('%',#{openid},'%')
+        </if>
+        <if test="phone != null and phone != ''">
+            AND PHONE LIKE CONCAT('%',#{phone},'%')
+        </if>
+    </select>
+    
+    <!-- 根据主键查询数据 -->
+    <select id="findUserByIds" resultMap="userMap" parameterType="list">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_USER WHERE ID IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    
+    <!-- 插入数据 -->
+    <insert id="insertUser" parameterType="User">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO T_USER (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{username},
+            #{password},
+            #{type},
+            #{extra},
+            #{openid},
+            #{phone}
+        )
+    </insert>
+    
+    <!-- 批量插入数据 -->
+    <insert id="insertUsers" parameterType="list">
+        INSERT INTO T_USER (<include refid="allColumns" />)
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (
+                #{item.id},
+                #{item.username},
+                #{item.password},
+                #{item.type},
+                #{item.extra},
+                #{item.openid},
+                #{item.phone}
+            )
+        </foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateUser" parameterType="map">
+        UPDATE T_USER
+        <set>
+            <if test="username != null">USERNAME = #{username},</if>
+            <if test="password != null">PASSWORD = #{password},</if>
+            <if test="type != null">TYPE = #{type},</if>
+            <if test="extra != null">EXTRA = #{extra},</if>
+            <if test="openid != null">OPENID = #{openid},</if>
+            <if test="phone != null">PHONE = #{phone}</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 批量修改数据 -->
+    <update id="updateUsers" parameterType="list">
+        <foreach collection="list" index="index" item="item" separator=";">
+            UPDATE T_USER
+            <set>
+                <if test="username != null">USERNAME = #{item.username},</if>
+                <if test="password != null">PASSWORD = #{item.password},</if>
+                <if test="type != null">TYPE = #{item.type},</if>
+                <if test="extra != null">EXTRA = #{item.extra},</if>
+                <if test="openid != null">OPENID = #{item.openid},</if>
+                <if test="phone != null">PHONE = #{item.phone}</if>
+            </set>
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteUserById" parameterType="INTEGER">
+        DELETE FROM T_USER WHERE ID = #{id}
+    </delete>
+    
+    <!-- 根据主键批量删除数据 -->
+    <delete id="deleteUserByIds" parameterType="list">
+        DELETE FROM T_USER WHERE ID IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- T_USER -->
+<mapper namespace="com.flower.dao.FeedBackDao">
+    <insert id="insert" parameterType="com.flower.bean.FeedBack">
+        insert into t_feedback (userId,feedbackTime,content) values (#{userId},#{feedbackTime},#{content})
+    </insert>
+</mapper>

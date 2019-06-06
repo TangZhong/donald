@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- T_ORDER -->
+<mapper namespace="com.flower.dao.OrderDao">
+    <!-- 结果映射 -->
+    <resultMap id="orderMap" type="Order">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+        <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+        <result column="addressId" property="addressId" jdbcType="INTEGER" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="ORDER_NUMBER" property="orderNumber" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, userId, DETAIL, PRICE, STATUS, START_DATE, 
+        addressId, REMARK, ORDER_NUMBER
+    </sql>
+    
+    <!-- 查询所有数据 -->
+    <select id="findOrderAll" resultMap="orderMap">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_ORDER
+    </select>
+    
+    <!-- 根据条件查询数据 -->
+    <select id="findOrderByCondition" resultMap="orderMap" parameterType="map">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_ORDER WHERE 1 = 1
+        <if test="userId != null">
+            AND userId = #{userId}
+        </if>
+        <if test="detail != null and detail != ''">
+            AND DETAIL LIKE CONCAT('%',#{detail},'%')
+        </if>
+        <if test="price != null">
+            AND PRICE = #{price}
+        </if>
+        <if test="status != null">
+            AND STATUS = #{status}
+        </if>
+        <if test="startDate != null">
+            AND START_DATE = #{startDate}
+        </if>
+        <if test="addressId != null">
+            AND addressId = #{addressId}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND REMARK LIKE CONCAT('%',#{remark},'%')
+        </if>
+        <if test="orderNumber != null">
+            AND ORDER_NUMBER = #{orderNumber}
+        </if>
+    </select>
+    
+    <!-- 根据主键查询数据 -->
+    <select id="findOrderByIds" resultMap="orderMap" parameterType="list">
+        SELECT
+        <include refid="allColumns" />
+        FROM T_ORDER WHERE ID IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="findOrderById" parameterType="java.lang.Integer" resultType="com.flower.bean.Order">
+        select <include refid="allColumns" />
+        FROM T_ORDER WHERE ID = #{orderId}
+    </select>
+    
+    <!-- 插入数据 -->
+    <insert id="insertOrder" parameterType="map">
+        INSERT INTO T_ORDER (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{userId},
+            #{detail},
+            #{price},
+            #{status},
+            #{startDate},
+            #{addressId},
+            #{remark},
+            #{orderNumber}
+        )
+    </insert>
+    
+    <!-- 批量插入数据 -->
+    <insert id="insertOrders" parameterType="list">
+        INSERT INTO T_ORDER (<include refid="allColumns" />)
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (
+                #{item.id},
+                #{item.userId},
+                #{item.detail},
+                #{item.price},
+                #{item.status},
+                #{item.startDate},
+                #{item.addressId},
+                #{item.remark},
+                #{item.orderNumber}
+            )
+        </foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateOrder" parameterType="map">
+        UPDATE T_ORDER
+        <set>
+            <if test="userId != null">userId = #{userId},</if>
+            <if test="detail != null">DETAIL = #{detail},</if>
+            <if test="price != null">PRICE = #{price},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="startDate != null">START_DATE = #{startDate},</if>
+            <if test="addressId != null">addressId = #{addressId},</if>
+            <if test="remark != null">REMARK = #{remark},</if>
+            <if test="orderNumber != null">ORDER_NUMBER = #{orderNumber}</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 批量修改数据 -->
+    <update id="updateOrders" parameterType="list">
+        <foreach collection="list" index="index" item="item" separator=";">
+            UPDATE T_ORDER
+            <set>
+                <if test="userId != null">userId = #{item.userId},</if>
+                <if test="detail != null">DETAIL = #{item.detail},</if>
+                <if test="price != null">PRICE = #{item.price},</if>
+                <if test="status != null">STATUS = #{item.status},</if>
+                <if test="startDate != null">START_DATE = #{item.startDate},</if>
+                <if test="addressId != null">addressId = #{item.addressId},</if>
+                <if test="remark != null">REMARK = #{item.remark},</if>
+                <if test="orderNumber != null">ORDER_NUMBER = #{item.orderNumber}</if>
+            </set>
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteOrderById" parameterType="INTEGER">
+        DELETE FROM T_ORDER WHERE ID = #{id}
+    </delete>
+    
+    <!-- 根据主键批量删除数据 -->
+    <delete id="deleteOrderByIds" parameterType="list">
+        DELETE FROM T_ORDER WHERE ID IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
