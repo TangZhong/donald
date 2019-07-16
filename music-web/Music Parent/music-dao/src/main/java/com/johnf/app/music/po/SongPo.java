@@ -39,7 +39,7 @@ public class SongPo implements Serializable {
 	private long version;
 
 	//歌手信息
-	private String singerInfo;
+	private String singer;
 	
 	//专辑信息
 	private String albumInfo;
@@ -108,12 +108,12 @@ public class SongPo implements Serializable {
 		this.version = version;
 	}
 
-	public String getSingerInfo() {
-		return singerInfo;
+	public String getSinger() {
+		return singer;
 	}
 
-	public void setSingerInfo(String singerInfo) {
-		this.singerInfo = singerInfo;
+	public void setSinger(String singer) {
+		this.singer = singer;
 	}
 
 	public String getAudio() {

@@ -67,7 +67,8 @@ public class BaseAction extends ActionSupport {
 	}
 	
 	public String getBasePath(){
-		return ServletActionContext.getServletContext().getRealPath("/");
+//		return ServletActionContext.getServletContext().getRealPath("/");
+		return System.getProperty("java.io.tmpdir");
 	}
 	
 	public Integer getTotal() {
@@ -131,9 +132,9 @@ public class BaseAction extends ActionSupport {
 		}
 	
 		//保存图片
-		String uuid = UUID.randomUUID().toString();
-		String imgName = uuid + fileName.substring(fileName.lastIndexOf("."));
-		FileOutputStream fos = new FileOutputStream(savePath + imgName);
+//		String uuid = UUID.randomUUID().toString();
+//		String imgName = uuid + fileName.substring(fileName.lastIndexOf("."));
+		FileOutputStream fos = new FileOutputStream(savePath + fileName);
 		FileInputStream fis = new FileInputStream(imgFile);
 		byte[] buffer = new byte[1024];
 		int len = 0;
@@ -142,7 +143,7 @@ public class BaseAction extends ActionSupport {
 		}
 		fis.close();
 		fos.close();
-		return (relativePath + imgName);
+		return (savePath + fileName);
 	}
 
 }

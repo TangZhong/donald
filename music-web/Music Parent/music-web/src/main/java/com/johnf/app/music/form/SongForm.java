@@ -43,6 +43,16 @@ public class SongForm {
 	//搜索关键字
 	private String key;
 
+	private String singer;
+
+	public String getSinger() {
+		return singer;
+	}
+
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
+
 	public String getId() {
 		return id;
 	}

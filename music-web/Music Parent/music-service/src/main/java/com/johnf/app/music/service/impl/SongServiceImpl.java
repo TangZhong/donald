@@ -26,7 +26,7 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public void insert(SongVo vo) {
 		//将歌曲-歌手的关联信息写入数据库
-        String[] singerIdStrArr = vo.getSingerInfo().trim().split(" ");
+        /*String[] singerIdStrArr = vo.getSingerInfo().trim().split(" ");
         for(String singerIdStr : singerIdStrArr) {
         	SongSingerPo songSinger = new SongSingerPo();
         	songSinger.setId(UUID.randomUUID().toString());
@@ -40,7 +40,7 @@ public class SongServiceImpl implements SongService {
         albumSongPo.setId(UUID.randomUUID().toString());
         albumSongPo.setAlbumId(vo.getAlbumInfo());
         albumSongPo.setSongId(vo.getId());
-        albumSongDao.insert(albumSongPo);
+        albumSongDao.insert(albumSongPo);*/
 		
         //将歌曲信息写入数据库
 		SongPo po = new SongPo();
