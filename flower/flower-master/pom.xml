@@ -19,7 +19,7 @@
         <mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
         <mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
         <mybatis-generator-core.version>1.3.5</mybatis-generator-core.version>
-        <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
         <druid-version>1.1.10</druid-version>
         <pagehelper.version>1.2.10</pagehelper.version>
         <fastjson.version>1.2.6</fastjson.version>
